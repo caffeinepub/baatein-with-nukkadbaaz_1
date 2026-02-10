@@ -1,0 +1,150 @@
+{
+  "kind": "build_request",
+  "title": "Baatein With Nukkadbaaz — theatre-focused blogging website for Heena Mehta",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a basic, attractive public website for the blog “Baatein With Nukkadbaaz” with clear navigation and core pages: Home, Posts (listing), Post Details, and About (profile of Heena Mehta and the blog mission for theatre enthusiasts). All user-facing text must be in English.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Build a blogging website called Baatein With Nukkadbaaz... This site is dedicated to all the theatre enthusiasts who want to keep themselves updated with latest news revolving around theatre like workshops, stage shows, interviews with veteran artists etc.  Keep it basic yet attractive."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Top-level navigation links to Home, Posts, About.",
+        "Home page introduces “Baatein With Nukkadbaaz”, mentions Heena Mehta, and summarizes the theatre-news focus (workshops, stage shows, interviews, etc.).",
+        "Posts page shows a list/grid of posts with title, cover image, date, category, and excerpt.",
+        "Clicking a post opens a Post Details page with full content.",
+        "About page describes Heena Mehta (media/journalism experience) and the blog’s purpose."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a coherent visual theme suitable for theatre journalism that is “basic yet attractive,” with complementary typography and colors applied consistently across pages (avoid a blue/purple-dominant palette).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Keep it basic yet attractive. Use relevant images and keep the font and colour complimenting."
+        ]
+      },
+      "acceptanceCriteria": [
+        "A consistent color palette (e.g., warm stage-inspired tones like maroon/cream/brass or similar) is used across backgrounds, headings, buttons, and links.",
+        "Typography pairing is consistent (distinct heading and body styles) and readable on mobile and desktop.",
+        "UI components (cards, buttons, nav) share consistent spacing, radius, and hover/focus states."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Support theatre-relevant post categorization and filtering at minimum for: Workshops, Stage Shows, Interviews, and Theatre News (or equivalent labels), and allow users to filter posts by category.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "latest news revolving around theatre like workshops, stage shows, interviews with veteran artists etc."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend stores a category value per post from a defined set (at least Workshops, Stage Shows, Interviews, Theatre News).",
+        "Posts list UI provides a category filter and shows only matching posts when selected.",
+        "Post Details clearly displays the post category."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement persistent blog post storage and retrieval in the Motoko backend, including: list posts (newest first), get post by id/slug, and admin-only create/update/delete posts.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes query methods to list posts and fetch a single post.",
+        "Posts are persisted across canister upgrades using stable storage techniques appropriate for Motoko.",
+        "Posts are returned sorted by published date (newest first).",
+        "Create/update/delete operations are restricted to an authenticated admin identity."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add an admin authoring experience in the frontend for Heena Mehta to manage posts: sign in with Internet Identity, create a post (title, category, cover image, excerpt, rich/markdown-like body text), edit, and delete.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A Sign In/Sign Out control is available for admin access via Internet Identity.",
+        "When signed out, admin actions (create/edit/delete) are not visible or are disabled.",
+        "When signed in as admin, an Admin area or controls allow creating, editing, and deleting posts.",
+        "Post editor captures title, category, cover image selection, excerpt, and body content.",
+        "Successful create/edit/delete immediately updates the UI (using React Query invalidation/refetch)."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Seed the application with a small set of initial example posts relevant to theatre (at least 6), spanning Workshops, Stage Shows, Interviews, and Theatre News, so the site looks complete on first load.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On a fresh deployment, the Posts page shows at least 6 example posts distributed across the categories.",
+        "Example posts include realistic titles and excerpts related to theatre updates (workshops, shows, interviews)."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Use relevant static images throughout the site (hero/banner, blog logo, and post cover placeholders) stored in the frontend as static assets, and display them in the layout and post cards.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Use relevant images"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images are placed under frontend/public/assets/generated and referenced directly by the frontend (not served via backend).",
+        "Home page includes a hero/banner image.",
+        "Site header includes a logo image.",
+        "Posts without a specific cover image use a theatre-appropriate placeholder cover image."
+      ]
+    }
+  ],
+  "constraints": [
+    "Use Motoko for backend logic in a single main actor.",
+    "Use React + TypeScript with Tailwind, shadcn/ui composition patterns, and React Query for data fetching/caching.",
+    "Do not modify any files under the immutable frontend paths listed in SYSTEM_CONTEXT (compose/extend instead).",
+    "Use English for all user-facing UI text."
+  ],
+  "nonGoals": [
+    "Third-party authentication providers other than Internet Identity.",
+    "Real-time updates (websockets), chat, push notifications, or email subscriptions.",
+    "External databases or third-party CMS integrations.",
+    "Payments, paywalls, or premium memberships."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Theatre-themed blog logo mark with text “Baatein With Nukkadbaaz” (baatein-logo.dim_512x512.png)",
+      "Wide stage-curtain/spotlight hero banner illustration/photo-style image (baatein-hero.dim_1600x600.png)",
+      "Set of 4 minimal theatre-themed category icons (masks/curtain/microphone/ticket) in a consistent style (baatein-category-icons.dim_1024x256.png)",
+      "Neutral theatre-themed post cover placeholder image (baatein-post-placeholder.dim_1200x630.png)"
+    ],
+    "edits": []
+  }
+}

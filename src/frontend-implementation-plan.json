@@ -1,0 +1,267 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Baatein With Nukkadbaaz — Frontend (React + TS + Tailwind + shadcn/ui + React Query)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Build public blog UI with clear navigation and core pages (Home, Posts listing, Post Details, About) in English, backed by backend post retrieval.",
+      "acceptanceCriteria": [
+        "Top-level navigation links to Home, Posts, About.",
+        "Home page introduces “Baatein With Nukkadbaaz”, mentions Heena Mehta, and summarizes the theatre-news focus (workshops, stage shows, interviews, etc.).",
+        "Posts page shows a list/grid of posts with title, cover image, date, category, and excerpt.",
+        "Clicking a post opens a Post Details page with full content.",
+        "About page describes Heena Mehta (media/journalism experience) and the blog’s purpose."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the app shell with route wiring for Home, Posts (listing), Post Details, and About, plus shared header/footer navigation. Use shadcn/ui composition patterns for layout primitives where appropriate. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/SiteHeader.tsx",
+          "operation": "create",
+          "description": "Implement a responsive header with top-level navigation links to Home, Posts, About, and space for the blog logo. Use shadcn/ui components (e.g., Button) for consistent interactive styling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/SiteFooter.tsx",
+          "operation": "create",
+          "description": "Add a simple footer with English-only copy and optional lightweight links (e.g., back to top), aligned to the theatre-journalism theme."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "create",
+          "description": "Create Home page content introducing “Baatein With Nukkadbaaz”, mentioning Heena Mehta, and summarizing the theatre-news focus. Include a hero/banner image (wired in REQ-7)."
+        },
+        {
+          "path": "frontend/src/pages/PostsPage.tsx",
+          "operation": "create",
+          "description": "Create Posts listing page that fetches posts via React Query and renders a list/grid of PostCard items with title, date, category, cover image, and excerpt (excerpt can be derived from content if not explicitly provided). Use shadcn/ui Card/Badge patterns. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/PostDetailsPage.tsx",
+          "operation": "create",
+          "description": "Create Post Details page that fetches a single post by id from the backend and renders full content plus category and published date; style long-form content using Tailwind typography utilities."
+        },
+        {
+          "path": "frontend/src/pages/AboutPage.tsx",
+          "operation": "create",
+          "description": "Create About page describing Heena Mehta (media/journalism experience) and the blog mission for theatre enthusiasts; keep all user-facing text in English."
+        },
+        {
+          "path": "frontend/src/components/PostCard.tsx",
+          "operation": "create",
+          "description": "Create a reusable PostCard for the Posts grid/list, showing cover image, title, date, category badge, and excerpt, linking to Post Details. Use shadcn/ui Card/Badge/Button patterns. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/usePosts.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for listing posts (newest first as provided by backend) and retrieving a single post; centralize query keys and basic error handling."
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Ensure the app bootstraps correctly with the created App.tsx and global styles import; keep React Query and InternetIdentityProvider wiring intact."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Apply a consistent, basic-yet-attractive theatre journalism visual theme (warm stage-inspired palette, complementary typography), avoiding blue/purple dominance.",
+      "acceptanceCriteria": [
+        "A consistent color palette (e.g., warm stage-inspired tones like maroon/cream/brass or similar) is used across backgrounds, headings, buttons, and links.",
+        "Typography pairing is consistent (distinct heading and body styles) and readable on mobile and desktop.",
+        "UI components (cards, buttons, nav) share consistent spacing, radius, and hover/focus states."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create the global stylesheet entry used by the app to define the theatre-inspired palette and typography foundations (CSS variables/Tailwind base layer), avoiding blue/purple-dominant tones; ensure readable defaults for body and headings."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme tokens (e.g., custom semantic colors and font family tokens) to support the warm theatre journalism palette and consistent typography across components."
+        },
+        {
+          "path": "frontend/src/components/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Apply consistent spacing, hover/focus styles, and typographic hierarchy in the header/navigation using Tailwind + shadcn/ui patterns. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/PostCard.tsx",
+          "operation": "modify",
+          "description": "Align card radius, spacing, and hover/focus states with the global theme and ensure visual consistency across the post list UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/PostDetailsPage.tsx",
+          "operation": "modify",
+          "description": "Ensure long-form article styling (headings, links, lists, quotes) matches the site typography and color system using Tailwind typography utilities."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Display theatre-relevant categories and enable filtering posts by category in the Posts UI; show category prominently on Post Details.",
+      "acceptanceCriteria": [
+        "Backend stores a category value per post from a defined set (at least Workshops, Stage Shows, Interviews, Theatre News).",
+        "Posts list UI provides a category filter and shows only matching posts when selected.",
+        "Post Details clearly displays the post category."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/postCategories.ts",
+          "operation": "create",
+          "description": "Add frontend helpers to map backend PostCategory values to user-friendly English labels (Workshops, Stage Shows, Interviews, Theatre News) and to associate each with a static icon reference (wired in REQ-7)."
+        },
+        {
+          "path": "frontend/src/hooks/usePosts.ts",
+          "operation": "modify",
+          "description": "Add a React Query hook for category filtering that uses the backend capability to filter posts by category and integrates with query keys for caching and refetch."
+        },
+        {
+          "path": "frontend/src/components/CategoryFilter.tsx",
+          "operation": "create",
+          "description": "Create a category filter control (e.g., Select/Tabs/Segmented control) for Workshops/Stage Shows/Interviews/Theatre News and an 'All' option; use shadcn/ui components for consistent UX. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/PostsPage.tsx",
+          "operation": "modify",
+          "description": "Wire CategoryFilter into the Posts page so selecting a category updates the displayed posts (via React Query), and ensure each post card shows its category label/icon."
+        },
+        {
+          "path": "frontend/src/pages/PostDetailsPage.tsx",
+          "operation": "modify",
+          "description": "Ensure the Post Details header area displays the category label (and optional category icon) clearly and consistently with the theme."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Provide an admin authoring UI for Heena Mehta: Internet Identity sign-in/out, admin-only create/edit/delete post controls, and an editor capturing title, category, cover image selection, excerpt, and markdown-like body; refresh UI via React Query invalidation.",
+      "acceptanceCriteria": [
+        "A Sign In/Sign Out control is available for admin access via Internet Identity.",
+        "When signed out, admin actions (create/edit/delete) are not visible or are disabled.",
+        "When signed in as admin, an Admin area or controls allow creating, editing, and deleting posts.",
+        "Post editor captures title, category, cover image selection, excerpt, and body content.",
+        "Successful create/edit/delete immediately updates the UI (using React Query invalidation/refetch)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Add a Sign In/Sign Out control using the existing Internet Identity hook, and clear React Query cache on logout as recommended by the authorization component guidance. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useAdmin.ts",
+          "operation": "create",
+          "description": "Create React Query hooks to fetch admin status/role (e.g., isCallerAdmin/getCallerUserRole) and expose a simple boolean for gating admin UI; handle authorization errors gracefully."
+        },
+        {
+          "path": "frontend/src/pages/AdminPage.tsx",
+          "operation": "create",
+          "description": "Create an Admin page that is only accessible/visible when the current identity is an admin; show an access-denied state otherwise (without adding new auth providers). Use shadcn/ui composition patterns for page layout. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/admin/PostEditor.tsx",
+          "operation": "create",
+          "description": "Implement a post editor form capturing title, category, cover image selection (from static assets), excerpt, and markdown-like body text; include basic preview for body rendering. Use shadcn/ui Form-ish composition (Input/Textarea/Select/Button/Dialog) as available. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/admin/AdminPostList.tsx",
+          "operation": "create",
+          "description": "Create an admin-only list/table of posts with Edit/Delete actions; use React Query for list data and mutations for delete/update. Use shadcn/ui components (e.g., Button, AlertDialog/Dialog) for confirmations. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/usePostMutations.ts",
+          "operation": "create",
+          "description": "Add React Query mutations for create/update/delete post backend capabilities; on success, invalidate/refetch post list and any affected post detail queries to keep UI in sync."
+        },
+        {
+          "path": "frontend/src/utils/postMetaStorage.ts",
+          "operation": "create",
+          "description": "Implement lightweight client-side persistence (e.g., localStorage) for optional UI-only fields not present in the backend interface (cover image choice and excerpt), keyed by post id, to support the editor fields and post card display without backend changes."
+        },
+        {
+          "path": "frontend/src/components/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Wire LoginButton into the header and optionally show an Admin link when the user is authenticated and is an admin. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register routing to the Admin page and ensure navigation to it is not shown to non-admin users; keep public pages accessible without requiring login."
+        },
+        {
+          "path": "frontend/src/pages/PostsPage.tsx",
+          "operation": "modify",
+          "description": "When current user is admin, show create/edit/delete entry points (e.g., a 'New Post' button and edit controls per post); hide or disable these controls when signed out or non-admin."
+        },
+        {
+          "path": "frontend/src/pages/PostDetailsPage.tsx",
+          "operation": "modify",
+          "description": "When current user is admin, show an Edit action (e.g., link to Admin editor for the post); hide/disable when not admin."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Use relevant static images (logo, hero/banner, category icons, post cover placeholder) as frontend assets and display them in layout and post cards.",
+      "acceptanceCriteria": [
+        "Generated images are placed under frontend/public/assets/generated and referenced directly by the frontend (not served via backend).",
+        "Home page includes a hero/banner image.",
+        "Site header includes a logo image.",
+        "Posts without a specific cover image use a theatre-appropriate placeholder cover image."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/baatein-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add generated static logo asset to be referenced by the frontend layout (header)."
+        },
+        {
+          "path": "frontend/public/assets/generated/baatein-hero.dim_1600x600.png",
+          "operation": "create",
+          "description": "Add generated static hero/banner asset to be referenced by the Home page."
+        },
+        {
+          "path": "frontend/public/assets/generated/baatein-category-icons.dim_1024x256.png",
+          "operation": "create",
+          "description": "Add generated static category icons sprite asset to be referenced by category UI (filter and badges)."
+        },
+        {
+          "path": "frontend/public/assets/generated/baatein-post-placeholder.dim_1200x630.png",
+          "operation": "create",
+          "description": "Add generated static post cover placeholder asset to be used when a post has no selected cover image."
+        },
+        {
+          "path": "frontend/src/components/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Render the blog logo image from frontend/public/assets/generated/baatein-logo.dim_512x512.png in the header branding area."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Render the hero/banner image from frontend/public/assets/generated/baatein-hero.dim_1600x600.png alongside the Home intro content."
+        },
+        {
+          "path": "frontend/src/components/PostCard.tsx",
+          "operation": "modify",
+          "description": "Display a cover image on each post card: use the selected cover image (from UI-only storage) when present; otherwise fall back to frontend/public/assets/generated/baatein-post-placeholder.dim_1200x630.png."
+        },
+        {
+          "path": "frontend/src/components/CategoryFilter.tsx",
+          "operation": "modify",
+          "description": "Show category iconography derived from frontend/public/assets/generated/baatein-category-icons.dim_1024x256.png (e.g., using CSS background positioning or splitting logic) to visually reinforce filtering choices."
+        },
+        {
+          "path": "frontend/src/utils/postCategories.ts",
+          "operation": "modify",
+          "description": "Wire category-to-icon mapping so Workshops/Stage Shows/Interviews/Theatre News can consistently display the correct icon from frontend/public/assets/generated/baatein-category-icons.dim_1024x256.png."
+        }
+      ]
+    }
+  ]
+}

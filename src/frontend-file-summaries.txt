@@ -1,0 +1,22 @@
+{
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, defining routes for Home, Posts, Post Details, About, and Admin pages with a shared layout including header and footer.",
+  "frontend/src/components/SiteHeader.tsx": "Responsive site header with logo, navigation links, mobile menu, and login button; shows admin link when user is authenticated as admin.",
+  "frontend/src/components/SiteFooter.tsx": "Site footer with about section, quick links, social media icons, and attribution to caffeine.ai with dynamic year and UTM tracking.",
+  "frontend/src/components/auth/LoginButton.tsx": "Authentication button component that handles Internet Identity login/logout with proper state management and query cache clearing.",
+  "frontend/src/pages/HomePage.tsx": "Landing page with hero section featuring Heena Mehta introduction, theatre focus areas (workshops, shows, interviews, news), and call-to-action buttons.",
+  "frontend/src/pages/PostsPage.tsx": "Posts listing page with category filter, grid layout of post cards, and admin controls for creating new posts when authenticated.",
+  "frontend/src/pages/PostDetailsPage.tsx": "Individual post detail page displaying full content, category badge, publication date, cover image, and edit button for admin users.",
+  "frontend/src/pages/AboutPage.tsx": "About page describing Baatein With Nukkadbaaz mission, Heena Mehta's background in media and journalism, and the blog's focus areas.",
+  "frontend/src/pages/AdminPage.tsx": "Admin panel page with access control, displaying post editor and post list management interface for authenticated admin users only.",
+  "frontend/src/components/PostCard.tsx": "Reusable post card component displaying cover image, title, category badge, excerpt, and publication date with hover effects.",
+  "frontend/src/components/CategoryFilter.tsx": "Tabbed category filter component allowing users to filter posts by Workshops, Stage Shows, Interviews, Theatre News, or view all posts.",
+  "frontend/src/components/admin/PostEditor.tsx": "Post creation and editing form with fields for title, category, cover image selection, excerpt, and content with save/cancel actions.",
+  "frontend/src/components/admin/AdminPostList.tsx": "Admin post management list showing all posts with edit and delete actions, including confirmation dialog for deletions.",
+  "frontend/src/hooks/usePosts.ts": "React Query hooks for fetching all posts, individual posts by ID, and filtered posts by category from the backend.",
+  "frontend/src/hooks/usePostMutations.ts": "React Query mutation hooks for creating, updating, and deleting posts with automatic cache invalidation.",
+  "frontend/src/hooks/useAdmin.ts": "React Query hook to check if the current user has admin privileges by calling the backend isCallerAdmin method.",
+  "frontend/src/utils/postCategories.ts": "Utility functions to map PostCategory enum values to human-readable labels and corresponding Lucide icons.",
+  "frontend/src/utils/postMetaStorage.ts": "Client-side localStorage utilities for persisting UI-only post metadata (cover image selection and excerpt) keyed by post ID.",
+  "frontend/src/index.css": "Global styles with warm theatre-inspired OKLCH color palette (maroon, cream, brass tones) for both light and dark modes, plus typography enhancements.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending theme with custom colors, Playfair Display serif font for headings, and theatre-appropriate design tokens."
+}
